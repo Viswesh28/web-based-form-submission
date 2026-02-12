@@ -76,3 +76,4 @@ The frontend utilizes a custom "Dark/Light" theme switcher with an aesthetic foc
 ## 📂 Project Structure
 
 To run this project correctly, place your files in the following structure:
+made with ❤️ by viswesh saravan
