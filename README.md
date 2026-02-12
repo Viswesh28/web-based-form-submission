@@ -1,11 +1,12 @@
- Secure Web Based Form Submissions
+# Secure Web Based Form Submissions
 
+**PBL Mini Project v2.0**
 
 A full-stack web application designed for secure form submissions and administrative management. This system features a refined "Old Money" aesthetic, role-based access control, real-time updates, and a complete audit trail for submission status changes.
 
 ---
 
- 📖 Table of Contents
+## 📖 Table of Contents
 - [About The Project](#-about-the-project)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
@@ -18,7 +19,7 @@ A full-stack web application designed for secure form submissions and administra
 
 ---
 
- 🏛️ About The Project
+## 🏛️ About The Project
 
 This application provides a platform for users to submit requests (e.g., leave requests, budget proposals) and track their status in real-time. Administrators have a dedicated dashboard to review submissions, approve or reject them with notes, and export data.
 
@@ -26,7 +27,7 @@ The frontend utilizes a custom "Dark/Light" theme switcher with an aesthetic foc
 
 ---
 
- ✨ Features
+## ✨ Features
 
 ### User Functionalities
 - **Authentication**: Secure Register and Login system.
@@ -49,7 +50,7 @@ The frontend utilizes a custom "Dark/Light" theme switcher with an aesthetic foc
 
 ---
 
- 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 **Frontend:**
 - HTML5, CSS3 (CSS Variables, Flexbox, Grid)
@@ -72,6 +73,6 @@ The frontend utilizes a custom "Dark/Light" theme switcher with an aesthetic foc
 
 ---
 
- 📂 Project Structure
+## 📂 Project Structure
 
 To run this project correctly, place your files in the following structure:
