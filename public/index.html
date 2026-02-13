@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Management</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dynamic Form System</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
@@ -14,8 +15,8 @@
     <!-- Navigation -->
     <nav class="navbar glass-effect">
         <div class="nav-brand">
-            <h1>secure web based form submissions</h1>
-            <span class="subtitle">PBL mini project v2.0</span>
+            <h1>Form Management</h1>
+            <span class="subtitle">Dynamic System </span>
         </div>
         <div id="nav-links">
             <!-- Links injected by JS -->
@@ -30,8 +31,6 @@
             <div class="auth-card card">
                 <h2 class="gold-text">Member Access</h2>
                 <form id="auth-form">
-                    <!-- Role Group Removed for Security (Defaults to User) -->
-                    
                     <div class="input-group" id="name-field" style="display:none;">
                         <label>Full Name</label>
                         <input type="text" id="name" placeholder="John Doe">
@@ -60,16 +59,22 @@
                 <!-- Submission Form -->
                 <div class="form-card card">
                     <h2 class="gold-text">New Submission</h2>
-                    <form id="submission-form">
-                        <div class="input-group">
-                            <label>Request Title</label>
-                            <input type="text" id="form-title" required placeholder="e.g. Leave Request, Budget Proposal">
+                    
+                    <!-- Step 1: Select Template -->
+                    <div class="input-group">
+                        <label>Select Form Type</label>
+                        <select id="template-selector">
+                            <option value="">-- Select a Form --</option>
+                        </select>
+                    </div>
+
+                    <!-- Step 2: Dynamic Fields Container -->
+                    <form id="submission-form" style="display:none;">
+                        <h3 id="dynamic-form-title" class="gold-text"></h3>
+                        <div id="dynamic-fields">
+                            <!-- Inputs injected here by JS -->
                         </div>
-                        <div class="input-group">
-                            <label>Details & Justification</label>
-                            <textarea id="form-data" rows="6" required placeholder="Enter details here..."></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary">Submit Proposal</button>
+                        <button type="submit" class="btn-primary">Submit Form</button>
                     </form>
                 </div>
 
@@ -84,15 +89,13 @@
                             <thead>
                                 <tr>
                                     <th>Ref ID</th>
-                                    <th>Title</th>
-                                    <th>Date & Time</th>
+                                    <th>Form Type</th>
+                                    <th>Date</th>
                                     <th>Status</th>
-                                    <th>Audit Log</th>
+                                    <th>Details</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Populated by JS -->
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -101,8 +104,28 @@
 
         <!-- Admin Dashboard -->
         <section id="admin-dashboard" class="hidden">
+            
+            <!-- Template Builder Section -->
+            <div class="card admin-controls" style="margin-bottom: 20px; flex-direction: column; align-items: flex-start;">
+                <h2 class="gold-text">Form Template Builder</h2>
+                <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Create new forms for users to fill out.</p>
+                
+                <div class="input-group" style="width: 300px; margin-bottom: 10px;">
+                    <label>Template Name</label>
+                    <input type="text" id="template-name" placeholder="e.g. Leave Request">
+                </div>
+                
+                <div id="field-builder">
+                    <!-- Dynamic Field Inputs Added Here -->
+                </div>
+                
+                <button class="btn-small" onclick="addTemplateField()" style="margin: 10px 0;">+ Add Field</button>
+                <button class="btn-primary" onclick="saveTemplate()" style="width: auto;">Save Template</button>
+            </div>
+
+            <!-- Existing Submission Overview -->
             <div class="admin-controls card">
-                <h2 class="gold-text">Authority Overview</h2>
+                <h2 class="gold-text">Submission Overview</h2>
                 <div class="filter-actions">
                     <input type="text" id="admin-search" placeholder="Search submissions..." class="search-input">
                     <button class="btn-small btn-export" onclick="exportData('admin')">Export All</button>
@@ -114,15 +137,14 @@
                         <tr>
                             <th>ID</th>
                             <th>Applicant</th>
-                            <th>Title</th>
-                            <th>Date & Time</th>
+                            <th>Form Type</th>
+                            <th>Data Preview</th>
+                            <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Populated by JS -->
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </section>
@@ -140,6 +162,17 @@
             <div class="modal-actions">
                 <button class="btn-primary" id="confirm-status-btn">Confirm</button>
                 <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Submission Details -->
+    <div id="view-modal" class="modal hidden">
+        <div class="modal-content card">
+            <h3 class="gold-text">Submission Details</h3>
+            <div id="view-details-content"></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeViewModal()">Close</button>
             </div>
         </div>
     </div>

@@ -1,7 +1,8 @@
+// db.js
 const sqlite3 = require('sqlite3').verbose();
 
 // Connect to SQLite database file
-const db = new sqlite3.Database('./form_system.db', (err) => {
+const db = new sqlite3.Database('./form_system.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
     } else {
